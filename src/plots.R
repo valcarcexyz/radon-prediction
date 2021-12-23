@@ -7,8 +7,8 @@ serie$time <- as_datetime(serie$time)         # convert the dates
 
 #################################### plots #################################### 
 # We fix the color for all the plots:
-colors <- c("radon" = "black", "state" = "blue",
-            "On" = "red", "Off" = "black")
+colors <- c("On" = "red", "Off" = "black",
+            "Predictions" = "red", "Real values" = "black")
 
 # 1. Complete radon level series
 ggplot(serie, aes(x = time, y = radon)) + 
@@ -48,13 +48,31 @@ ggplot(serie[c(40000:40500), ], aes(x = time,
        y = "Radon level (Bq/m³)",
        color = "Ventilation status") + 
   scale_color_manual(values = colors)
-ggsave("../figures/radon_signal_ventilation_influence.png", width = 10, height = 5)
+ggsave("../figures/radon_signal_ventilation_influence.png", 
+       width = 10, height = 5)
 
 
+# 5. Radon forecasting.
+colors <- c("Predictions" = "red", "Real values" = "black")
+predictions <- read.csv("../data/predictions.csv")
+ggplot(predictions, aes(x = c(1:length(real)))) +
+  geom_line(aes(y = predictions, color = "Predictions")) + 
+  geom_line(aes(y = real, color = "Real values")) + 
+  labs(x = "Time forecast",
+       y = "Radon level (Bq/m³)",
+       color = "Legend") + 
+  scale_color_manual(values = colors)
+ggsave("../figures/LSTM_forecasting.png", width = 10, height = 5)
 
-
-
-
+# 6. Same, but closer
+ggplot(predictions[c(600:700),], aes(x = c(1:length(real)))) +
+  geom_line(aes(y = predictions, color = "Predictions")) + 
+  geom_line(aes(y = real, color = "Real values")) + 
+  labs(x = "Time forecast",
+       y = "Radon level (Bq/m³)",
+       color = "Legend") + 
+  scale_color_manual(values = colors)
+ggsave("../figures/LSTM_forecasting_close.png", width = 10, height = 5)
 
 
 
