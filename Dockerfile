@@ -1,5 +1,4 @@
 FROM tensorflow/serving
-ENV PWD RUN echo $PWD
 COPY . /app
 WORKDIR /app
 EXPOSE 8500
