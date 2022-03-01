@@ -6,7 +6,6 @@ RADON_MIN = 42
 RADON_MAX = 2934
 
 URL = "http://localhost:8500/v1/models/radon_prediction:predict"
-headers = {"content-type": "application/json"}
 
 last_15_radon = np.random.randint(250, 350, (15,))
 # normalize data:
