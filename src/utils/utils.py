@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 def generate_windows(data, x_len, y_len):
     """
     Construye una matriz de ventanas dados los siguientes argumentos:
@@ -6,12 +7,10 @@ def generate_windows(data, x_len, y_len):
     + x_len : longitud de la ventana que se usará para predecir
     + y_len: tamaño del horizonte
     """
-    N = len(data) - (x_len + y_len) + 1
-    _data = np.zeros((N, (x_len + y_len)))
-    
-    for i in range(N):
-        _data[i,:] = data[i:(i+x_len+y_len)]
-    return _data
+    N = x_len + y_len
+    return np.array([
+        pd.Series(data).shift(i) for i in reversed(range(N))
+    ]).transpose()[N-1:, :]
 
 def mix_data(data):
     """Devuelve la matriz formateada"""
