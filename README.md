@@ -21,3 +21,15 @@ The repository structure is the following
     └── utils
         └── // Useful functions
 ```
+
+## Depoyment with docker
+Start the container as follows:
+```bash
+docker build -t radon_predictions .
+docker run -p 8500:8500 --name radon radon_predictions
+```
+
+To submit data to predict new radon levels, there is an example in [sample_predictions.py](https://github.com/valcarce01/radon-prediction/blob/main/sample_predictions.py) using python requests.
+
+Then, to stop the container: `docker stop radon`. For further configuration, navigate the docker documentation.
+
