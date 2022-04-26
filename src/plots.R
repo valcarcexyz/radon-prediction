@@ -9,8 +9,8 @@ serie$time <- as_datetime(serie$time)         # convert the dates
 
 #################################### plots #################################### 
 # We fix the color for all the plots:
-colors <- c("On" = "red", "Off" = "black",
-            "Predictions" = "red", "Real values" = "black")
+colors_onoff <- c("On" = "red", "Off" = "black")
+colors_realpred <- c("Predictions" = "red", "Real values" = "black")
 
 # 1. Complete radon level series
 ggplot(serie, aes(x = time, y = radon)) + 
@@ -49,13 +49,12 @@ ggplot(serie[c(40000:40500), ], aes(x = time,
   labs(x = "Time (10 minutes frequency)",
        y = "Radon level (Bq/m³)",
        color = "Ventilation status") + 
-  scale_color_manual(values = colors)
+  scale_color_manual(values = colors_onoff)
 ggsave("../figures/radon_signal_ventilation_influence.png", 
        width = 10, height = 5)
 
 
 # 5. Radon forecasting.
-colors <- c("Predictions" = "red", "Real values" = "black")
 predictions <- read.csv("../data/predictions.csv")
 ggplot(predictions, aes(x = c(1:length(real)))) +
   geom_line(aes(y = predictions, color = "Predictions")) + 
@@ -63,7 +62,7 @@ ggplot(predictions, aes(x = c(1:length(real)))) +
   labs(x = "Time forecast",
        y = "Radon level (Bq/m³)",
        color = "Legend") + 
-  scale_color_manual(values = colors)
+  scale_color_manual(values = colors_realpred)
 ggsave("../figures/LSTM_forecasting.png", width = 10, height = 5)
 
 # 6. Same, but closer
@@ -73,7 +72,7 @@ ggplot(predictions[c(600:700),], aes(x = c(1:length(real)))) +
   labs(x = "Time forecast",
        y = "Radon level (Bq/m³)",
        color = "Legend") + 
-  scale_color_manual(values = colors)
+  scale_color_manual(values = colors_realpred)
 ggsave("../figures/LSTM_forecasting_close.png", width = 10, height = 5)
 
 
@@ -120,7 +119,6 @@ for ( i in 1:nrow(actions) ){
 standalone <- fill(standalone, value, .direction="up")
 standalone[is.na(standalone)] <- "Off" # the remaining (the firsts obervations)
 
-colors <- c("Predictions" = "red", "Real values" = "black")
 ggplot(standalone, aes(x = time)) +
   geom_line(aes(y = predictions, color = "Predictions")) +
   geom_line(aes(y = real, color = "Real values")) + 
@@ -128,7 +126,7 @@ ggplot(standalone, aes(x = time)) +
   labs(x = "Forecast",
        y = "Radon level (Bq/m³)",
        color = "Legend") + 
-  scale_color_manual(values = colors)
+  scale_color_manual(values = colors_realpred)
 ggsave("../figures/test_forecast.png", width = 10, height = 5)
 
 # on/off in the forecast
@@ -143,5 +141,5 @@ ggplot(standalone, aes(x = time,
   labs(x = "Time (10 minutes frequency)",
        y = "Radon level (Bq/m³)",
        color = "Ventilation status") + 
-  scale_color_manual(values = colors)
+  scale_color_manual(values = colors_onoff)
 ggsave("../figures/test_forecast_fan_status.png", width = 10, height = 5)
