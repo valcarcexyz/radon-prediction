@@ -138,6 +138,7 @@ ggplot(standalone, aes(x = time,
                        group = 1,
                        colour = status)) + 
   geom_line() + 
+  geom_hline(yintercept = 300, linetype="dotted", col="red") +
   scale_x_datetime(date_breaks = "1 day", labels = date_format("%d/%m")) + 
   labs(x = "Time (10 minutes frequency)",
        y = "Radon level (Bq/m³)",
