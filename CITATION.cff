@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Diego"
+  given-names: "Valcarce"
+  orcid: "https://orcid.org/0000-0003-1574-8161"
+- family-names: "Alberto"
+  given-names: "Alvarellos"
+  orcid: "https://orcid.org/0000-0002-3404-3354"
+- family-names: "Juan Ramón"
+  given-names: "Rabuñal"
+  orcid: "https://orcid.org/0000-0002-1253-4419"
+- family-names: "Julián"
+  given-names: "Dorado"
+  orcid: "https://orcid.org/0000-0001-8945-2991"
+- family-names: "Marcos"
+  given-names: "Gestal"
+  orcid: "https://orcid.org/0000-0002-4371-8632"
+title: "Machine Learning-Based Radon Monitoring System"
+version: 1.0.0
+doi: 10.3390/chemosensors10070239
+date-released: 2022-06-24
+url: "https://github.com/valcarce01/radon-prediction"
